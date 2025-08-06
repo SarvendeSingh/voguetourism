@@ -1,0 +1,20 @@
+# BEGIN Vogue Tourism URL Rewriting
+<IfModule mod_rewrite.c>
+RewriteEngine On
+# Set the base directory for all rules
+RewriteBase /voguetourism/
+
+# Prevent the rules from running on files/folders that actually exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# RULE 1: For LISTING pages (URL ends with the folder name)
+# Examples: /cruise/ or /domestic or /international
+RewriteRule ^(cruise|domestic|international)/?$ $1/index.php [L,QSA]
+
+# RULE 2: For DETAILS pages (URL has a tour name after the folder)
+# Example: /cruise/some-tour-name/
+RewriteRule ^(cruise|domestic|international)/([a-zA-Z0-9-]+)/?$ $1/details.php?tour_slug=$2 [L,QSA]
+
+</IfModule>
+# END Vogue Tourism URL Rewriting
